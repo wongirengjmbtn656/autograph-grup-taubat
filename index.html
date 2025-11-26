@@ -95,6 +95,24 @@
         color: #00ffff;
         text-align: center;
     }
+    /* Salju */
+.snowflake {
+    position: fixed;
+    top: -10px;
+    z-index: 9999;
+    user-select: none;
+    pointer-events: none;
+    color: #fff;
+    font-size: 1em;
+    opacity: 0.8;
+    animation-name: fall;
+    animation-timing-function: linear;
+}
+
+@keyframes fall {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(100vh) rotate(360deg); }
+}
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
 </head>
@@ -142,6 +160,25 @@
 </div>
 
 <footer>© 2025 Grup Taubat. Make With Oleleolala. All rights reserved.</footer>
+<script>
+// Fungsi membuat salju
+function createSnowflake() {
+    const snowflake = document.createElement('div');
+    snowflake.classList.add('snowflake');
+    snowflake.textContent = '❄'; // karakter salju
+    snowflake.style.left = Math.random() * window.innerWidth + 'px';
+    snowflake.style.fontSize = (Math.random() * 10 + 10) + 'px';
+    snowflake.style.animationDuration = (Math.random() * 5 + 5) + 's';
+    document.body.appendChild(snowflake);
 
+    // Hapus snowflake setelah animasi selesai
+    setTimeout(() => {
+        snowflake.remove();
+    }, parseFloat(snowflake.style.animationDuration) * 1000);
+}
+
+// Buat beberapa salju terus-menerus
+setInterval(createSnowflake, 200);
+</script>
 </body>
 </html>
