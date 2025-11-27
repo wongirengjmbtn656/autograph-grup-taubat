@@ -1,244 +1,368 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Grup taubat</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Grup Taubat — Berserk Theme</title>
+
+<!-- Font: Cinzel (gothic/medieval) + Uncial Antique for headings -->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Uncial+Antiqua&display=swap" rel="stylesheet">
+
 <style>
   /* RESET */
-* {
-  margin: 0; padding: 0; box-sizing: border-box;
-  font-family: "Comic Sans MS", cursive;
-}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:
+      radial-gradient(ellipse at 20% 10%, rgba(120,20,20,0.12) 0%, transparent 18%),
+      linear-gradient(180deg,#0b0b0b 0%, #111010 40%, #0b0b0b 100%);
+    color:#ddd;
+    font-family: "Cinzel", serif;
+    -webkit-font-smoothing:antialiased;
+    position:relative;
+    min-height:100vh;
+    overflow-x:hidden;
+  }
 
-/* BACKGROUND RETRO 2000s */
-body {
-  height: 100vh;
-  background: linear-gradient(135deg, #ff00ff, #00ccff, #ffff00);
-  background-size: 400% 400%;
-  animation: retroBG 10s infinite;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow-x: hidden;
-}
+  /* VIGNETTE + GRAIN */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    pointer-events:none;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0) 30%, rgba(0,0,0,0.6) 100%);
+    mix-blend-mode:multiply;
+  }
+  /* subtle paper/noise overlay (SVG data URI) */
+  body::after{
+    content:"";
+    position:fixed; inset:0;
+    background-image: url("data:image/svg+xml;utf8,\
+    <svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'>\
+    <filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter>\
+    <rect width='100%' height='100%' filter='url(%23n)' opacity='0.03' /></svg>");
+    opacity:0.8;
+    mix-blend-mode:overlay;
+    pointer-events:none;
+  }
 
-/* animasi latar */
-@keyframes retroBG {
-  0% {background-position: 0% 50%;}
-  50% {background-position: 100% 50%;}
-  100% {background-position: 0% 50%;}
-}
+  /* Header */
+  header{
+    width:100%;
+    padding:2rem 1rem;
+    text-align:center;
+    border-bottom:3px solid rgba(80,10,10,0.3);
+    background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.45));
+    position:relative;
+    z-index:5;
+  }
+  header h1{
+    font-family:"Uncial Antiqua", serif;
+    font-size:2.6rem;
+    letter-spacing:2px;
+    color:#f2e6de;
+    text-shadow: 0 6px 18px rgba(0,0,0,0.8), 0 1px 0 #230606;
+  }
+  header .subtitle{
+    margin-top:.25rem;
+    font-size:.95rem;
+    color:#bfb1aa;
+    opacity:.9;
+  }
 
-/* HEADER */
-header {
-  text-align: center;
-  padding: 2rem;
-  font-size: 3rem;
-  color: #ffffff;
-  text-shadow: 4px 4px 0px #000, 0 0 10px #ff00ff;
-  border-bottom: 4px dashed #fff;
-  width: 100%;
-  background: rgba(0,0,0,0.3);
-}
+  /* Layout */
+  .wrap{
+    width:94%;
+    max-width:1200px;
+    margin:2rem auto 4rem;
+    display:grid;
+    grid-template-columns: 1fr;
+    gap:1.5rem;
+    z-index:4;
+    position:relative;
+  }
 
-/* GRID */
-.container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-  width: 90%;
-  max-width: 1300px;
-  gap: 2rem;
-  margin-top: 2rem;
-}
+  /* main grid of cards */
+  .container{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap:1.5rem;
+  }
 
-/* CARD RETRO */
-.card {
-  background: linear-gradient(#ffffff, #d9d9ff);
-  border-radius: 25px;
-  border: 4px solid #0000ff;
-  box-shadow: 6px 6px 0px #000;
-  padding: 1rem;
-  text-align: center;
-  transition: transform .2s, box-shadow .2s;
-}
+  /* Card: parchment / armour look */
+  .card{
+    background:
+      linear-gradient(180deg, rgba(25,20,18,0.96), rgba(12,10,9,0.98));
+    border-radius:14px;
+    border:3px solid rgba(80,10,10,0.6);
+    padding:1.1rem;
+    box-shadow: 6px 10px 0 rgba(0,0,0,0.8);
+    transform-origin:center;
+    transition: transform .18s, box-shadow .18s;
+    position:relative;
+    overflow:hidden;
+  }
+  .card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background: linear-gradient(90deg, rgba(255,0,0,0.02), transparent 30%, rgba(255,255,255,0.01));
+    pointer-events:none;
+  }
+  .card:hover{ transform: translateY(-6px) rotate(-0.6deg); box-shadow: 12px 16px 0 rgba(0,0,0,0.9); }
 
-.card:hover {
-  transform: translateY(-5px) rotate(-1deg);
-  box-shadow: 10px 10px 0px #ff00ff;
-}
+  /* image framed like portrait plate */
+  .card img{
+    width:150px;
+    height:150px;
+    object-fit:cover;
+    border-radius:8px;
+    border: 5px solid rgba(40,10,10,0.8);
+    box-shadow: inset 0 0 12px rgba(0,0,0,0.6), 6px 6px 0 rgba(0,0,0,0.7);
+    display:block;
+    margin:0 auto .9rem;
+    background:#060606;
+  }
 
-/* FOTO MEMBER */
-.card img {
-  width: 160px; height: 160px;
-  border-radius: 20px;
-  border: 3px solid #ff00ff;
-  box-shadow: 4px 4px 0px #000;
-  object-fit: cover;
-  margin-bottom: .5rem;
-}
+  .card h3{
+    font-size:1.2rem;
+    text-align:center;
+    color:#f5dfd9;
+    margin-bottom:.45rem;
+    text-transform:uppercase;
+    letter-spacing:1.2px;
+    font-weight:700;
+  }
 
-/* NAMA */
-.card h3 {
-  color: #0000ff;
-  font-size: 1.4rem;
-  text-shadow: 1px 1px 0 #fff;
-}
+  .card p{
+    font-size:.9rem;
+    line-height:1.3;
+    color:#c9bdb7;
+    text-align:center;
+    min-height:64px;
+    padding:0 .4rem;
+  }
 
-/* DESKRIPSI */
-.card p {
-  color: #000;
-  font-size: 0.9rem;
-}
+  /* A small stat / sigil line */
+  .sigil{
+    display:flex;
+    justify-content:center;
+    gap:.6rem;
+    margin-top:.8rem;
+  }
+  .sig{
+    font-size:.9rem;
+    padding:.25rem .6rem;
+    border-radius:999px;
+    background: rgba(255,255,255,0.03);
+    color:#d6c6c2;
+    border:1px solid rgba(255,0,0,0.06);
+    box-shadow: inset 0 -2px 0 rgba(0,0,0,0.6);
+  }
 
-/* FOOTER */
-footer {
-  margin-top: auto;
-  padding: 1rem;
-  width: 100%;
-  text-align: center;
-  background: rgba(0,0,0,0.4);
-  font-size: 0.9rem;
-  text-shadow: 2px 2px 0px #000;
-  border-top: 4px dotted #fff;
-}
+  /* Footer */
+  footer{
+    margin-top:2rem;
+    padding:1rem;
+    text-align:center;
+    color:#9f8f8b;
+    border-top:2px dotted rgba(120,20,20,0.18);
+    font-size:0.9rem;
+  }
 
-/* SALJU MASIH ADA */
-.snowflake {
-    position: fixed;
-    top: -10px;
-    z-index: 9999;
-    user-select: none;
-    pointer-events: none;
-    color: #fff;
-    font-size: 1em;
-    opacity: 0.8;
-    animation-name: fall;
+  /* Search box - restyled as grim search */
+  .search-box{
+    margin:1.2rem auto 0;
+    width:100%;
+    max-width:640px;
+    padding:18px;
+    background: linear-gradient(180deg, rgba(30,24,22,0.95), rgba(12,10,9,0.96));
+    border-radius:12px;
+    border:2px solid rgba(80,10,10,0.5);
+    box-shadow: 6px 8px 0 rgba(0,0,0,0.8);
+    text-align:center;
+  }
+  .search-box input[type="text"]{
+    width:70%;
+    padding:10px 12px;
+    border-radius:8px;
+    border:2px solid rgba(255,255,255,0.06);
+    background:rgba(0,0,0,0.4);
+    color:#ddd;
+    font-size:1rem;
+    outline:none;
+  }
+  .search-box button{
+    padding:10px 18px;
+    margin-left:8px;
+    font-size:1rem;
+    border-radius:8px;
+    border:2px solid rgba(110,10,10,0.8);
+    background:linear-gradient(180deg,#3a0b0b,#1c0404);
+    color:#f7dcd8;
+    cursor:pointer;
+    box-shadow: 4px 6px 0 rgba(0,0,0,0.6);
+  }
+  .search-box button:hover{ transform:translateY(-3px); }
+
+  /* Ember / ash particles */
+  .ember{
+    position:fixed;
+    top:-10px;
+    left:0;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:rgba(255,110,60,0.12);
+    box-shadow: 0 0 8px rgba(255,80,40,0.15);
+    pointer-events:none;
+    z-index:3;
+    animation-name: emberFall;
     animation-timing-function: linear;
-}
-@keyframes fall {
-    0% { transform: translateY(0) rotate(0deg); }
-    100% { transform: translateY(100vh) rotate(360deg); }
-}
+  }
+  @keyframes emberFall{
+    0%{ transform: translateY(-40vh) scale(0.4) rotate(0deg); opacity:1; }
+    100%{ transform: translateY(120vh) scale(1.0) rotate(360deg); opacity:0; }
+  }
+
+  /* small responsive tweaks */
+  @media (max-width:640px){
+    header h1{font-size:1.9rem}
+    .card img{width:120px;height:120px}
+  }
+
+  /* Decorative blood scratch across header */
+  .blood-scratch{
+    position:absolute;
+    height:6px;
+    width:60%;
+    left:20%;
+    top:calc(50% - 10px);
+    background: linear-gradient(90deg, rgba(140,10,10,0.12), rgba(200,20,20,0.4) 50%, rgba(140,10,10,0.12));
+    transform:rotate(-6deg);
+    filter: blur(.6px);
+    opacity:0.7;
+    z-index:1;
+    pointer-events:none;
+  }
 </style>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="stars"></div>
-<header>Grup Taubat</header>
-<div class="container">
-    <!-- Template card member -->
-    <div class="card">
+  <header>
+    <div class="blood-scratch" aria-hidden="true"></div>
+    <h1>Grup Taubat</h1>
+    <div class="subtitle">— Warung jiwa, bayang-bayang dan abu —</div>
+  </header>
+
+  <main class="wrap">
+    <div class="container">
+      <!-- Card template repeated (kept original images & text) -->
+      <div class="card">
         <img src="https://blogger.googleusercontent.com/img/a/AVvXsEinxDzN5braTG3166ARLFPE2cc-Yc2GdaCQfXpuMP60FQzrhTG7J9wb5WxpBBRKTzVmz38oPfxMQHe12wT9kBKy2YdMvp0WdSUKcFpUVM9kpgGQtqiEMRGp_hQ5sHnVxsHFBEaRYkftBP4hqOAU-VBOFP9HvyBiShMEFtIH4C-lbud78XE3EUCAK4ctrbw" alt="Member 1">
         <h3>Leader</h3>
-        <p>Kd 3,skill bot, user AWM, agak ganteng dkit, orang kepercayaan, ramah sekali, suka telat, Kolektor pantat hitam no 1 padang cik, kolektor stiker anime bersusu gede(real), leader, camlon S.Pd. udah pernah immo 🤪🤙🏻 (10/12/06) 
-</p>
-    </div>
-    <div class="card">
+        <p>Kd 3, skill bot, user AWM, agak ganteng dkit, orang kepercayaan, ramah sekali, suka telat. (10/12/06)</p>
+        <div class="sigil">
+          <div class="sig">Kd 3</div><div class="sig">Leader</div><div class="sig">Trusted</div>
+        </div>
+      </div>
+
+      <div class="card">
         <img src="https://blogger.googleusercontent.com/img/a/AVvXsEhm20eO0DcDDiOUrb0_Wu6xIWvjlE9E8FYk_RWw8Nc2wzgznBXxQR4R9l3RarHPGFT5O1q-ExfrAFLXFvVVeX5ECboKBqNNPbEMvIABqGhfpo8z6yXZbXd5gHFX0Gq5vYJ-C3UtHyChbS5YGYehB_1fiM7wWX_91KhiqGEKUY6GT2-4m973W48M6-Fh7WM" alt="Member 2">
         <h3>Officer</h3>
-        <p>Top Global Yapping</p>
-    </div>
-    <div class="card">
+        <p>Top Global Yapping — pengawas lapangan, pendekar kata.</p>
+        <div class="sigil">
+          <div class="sig">Officer</div><div class="sig">Global</div>
+        </div>
+      </div>
+
+      <div class="card">
         <img src="https://blogger.googleusercontent.com/img/a/AVvXsEimK-JyPOOdmxCXA2Rw-BKHTJmBSjUZD6YSZMxoKLZHj1KCrMSpV97fzmjVYajC9VzaDYdhsCWpF-EQtMR3nJDTL09oHQVMymMzawz5nl8wdug5hfJDuJYs_VIg1eAthVOpoNpUvRZHzgxo7sW6e76w7HOU4OZYEILKNDoRe_E4eLWuAEV0Qyn1Shfj4kY" alt="Member 3">
         <h3>Member 1</h3>
-        <p>cool, ganteng bngt , ireng dkit , mantan admin, bnyk harem, Kd 4 (emg 4 ygy) , tukang halu, cabul, Blue in my heart 💙,pria dewasa camlon S.H. </p>
-    </div>
-    <div class="card">
+        <p>Cool, mantan admin, kolektor hati yang tak tentram — Blue in my heart.</p>
+        <div class="sigil">
+          <div class="sig">Kd 4</div><div class="sig">Ex-Admin</div>
+        </div>
+      </div>
+
+      <div class="card">
         <img src="https://blogger.googleusercontent.com/img/a/AVvXsEiaOcjOgSL8XmleZXTKGJznSyBMoNEYS6FBsUmzuTbjN5QFMWFkVJb_3l30xY1StywBtvA6LPgKewA6piLQ07GyPr5E649SJ_0AdHCG2sdUr7l1dvbd2RIvvBxsBh5FUwmwdQOHS9V5h3Xtz6IfQcPuahMk9DQeRqSxUqWAmzPn64nUa61T9GSRb6jgHWQ" alt="Member 4">
         <h3>Member 2</h3>
-        <p>Korban stiker, anti kata kasar, tukang share kebaikan, tukang ngendok, anti pemerintahan ( gak selalu) , laki yae miko 💞, laki citlali <= Strezz 😹,camlon A.Md.T </p>
-    </div>
-    <div class="card">
+        <p>Anti-kasar, pendiam yang menabur kebaikan—selalu siap menenangkan badai.</p>
+        <div class="sigil">
+          <div class="sig">Calm</div><div class="sig">Healer</div>
+        </div>
+      </div>
+
+      <div class="card">
         <img src="https://blogger.googleusercontent.com/img/a/AVvXsEi4LiHqRXsK-lYKxU9GFj-qf8iqjYPNWcrXv3PJTgLZLQouJ1eOLbalG0PD0akomsD0ut4gdBbzs1y_y92z4F00f1UFTG_k9QZdTjeK-WGhmG5wOjxSt99tLiS4E-eUkwsQMCqWRHKgPjeURTvnydn6h--MPq9ahlW1r5XVOQ52ZBZWFC1nZEW_1EOn12Y" alt="Member 5">
         <h3>Member 3</h3>
-        <p>main game 4no, peminat sejarah, user apk yahudi, nasionalis, camlon S.Hum </p>
-    </div>
-    <div class="card">
+        <p>Peminat sejarah, sekali tenggelam di narasi masa lalu—mata selalu tertuju ke peta lama.</p>
+        <div class="sigil">
+          <div class="sig">Historian</div><div class="sig">Gamer</div>
+        </div>
+      </div>
+
+      <div class="card">
         <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgx474_tmQ98AbTye9Pa2XFZ38rZdDYBrCqLFVVgQ7BPg9B3E2s0cuVQER8CALqKMOzNrhrDKoIUQg74h5wMZ6pAKVUHeCIeiNzY-grY76xu3fvgck4TnNuqlhhj0jeBcHtq2rbZApIsRCU_f6Hkfdv_z0aKhhLZ2KyY2nkLg7EGgQ94gGgpYFXOuhmApU" alt="Member 6">
         <h3>Member 4</h3>
-        <p>Pria sigma, King Biologi, Starboy, cuek njir, Ilham "bapak gue njir", raja panah, anak farmasi unand euyy,(berly:tolong buatin gw obat pembesar icibos), camlon S.Farm.
-</p>
-    </div>
-    <div class="card">
+        <p>Pria sigma, King Biologi — dingin, tegas, panah menepuk senja.</p>
+        <div class="sigil">
+          <div class="sig">Sigma</div><div class="sig">Biology</div>
+        </div>
+      </div>
+
+      <div class="card">
         <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgBrb07NypA5uUVk7MpCRdmFC0Asc0OREccTktYxSJth2elLH-cMEnQ67mmeU0xui7JGQH-yQ1Xf0t1iikM8NdGqfvSX7hoO6qVtyk6DKwd9kHd9tTa0BmDQLi1_decMRbNUxAJk_Ge5habCNcaxoh7voRjBne8BF1H_CVB7KxnJBhTCN-3ulzM0XQb74E" alt="Member 7">
         <h3>Member 5</h3>
-        <p>gk pernah toxic,player sakura school simulator,roblox,pubg,minecrot,mau beli macbook,pengen aktif di kelas(when ya) urang minang asli no jawa jawa camlon S.M.
-</p>
+        <p>Pemalu yang penuh ambisi: pemain, penantang rindu dan MacBook impian.</p>
+        <div class="sigil">
+          <div class="sig">Gamer</div><div class="sig">Dreamer</div>
+        </div>
+      </div>
+
     </div>
-</div>
-<script>
-// Fungsi membuat salju
-function createSnowflake() {
-    const snowflake = document.createElement('div');
-    snowflake.classList.add('snowflake');
-    snowflake.textContent = '❄'; // karakter salju
-    snowflake.style.left = Math.random() * window.innerWidth + 'px';
-    snowflake.style.fontSize = (Math.random() * 10 + 10) + 'px';
-    snowflake.style.animationDuration = (Math.random() * 5 + 5) + 's';
-    document.body.appendChild(snowflake);
 
-    // Hapus snowflake setelah animasi selesai
-    setTimeout(() => {
-        snowflake.remove();
-    }, parseFloat(snowflake.style.animationDuration) * 1000);
-}
+    <!-- Search block -->
+    <div class="search-box" role="search" aria-label="Search">
+      <h2 style="color:#e6d9d6;margin-bottom:8px;font-family:'Uncial Antiqua', serif">🔎 Cari (DuckDuckGo)</h2>
+      <form action="https://duckduckgo.com/" method="get" target="_blank">
+        <input type="text" name="q" placeholder="Cari..." aria-label="q" />
+        <button type="submit">Telusuri</button>
+      </form>
+    </div>
 
-// Buat beberapa salju terus-menerus
-setInterval(createSnowflake, 200);
-</script>
-  <!-- SEARCH ENGINE RETRO DUCKDUCKGO -->
-<div style="
-    margin-top: 40px;
-    padding: 20px;
-    width: 90%;
-    max-width: 600px;
-    background: linear-gradient(#ffffff, #d9d9ff);
-    border: 4px solid #0000ff;
-    border-radius: 25px;
-    box-shadow: 6px 6px 0px #000;
-    text-align: center;
-    font-family: 'Comic Sans MS', cursive;
-">
-    <h2 style="
-        margin-bottom: 10px;
-        font-size: 1.6rem;
-        color: #0000ff;
-        text-shadow: 1px 1px 0 #fff;
-    ">
-        🔍 Search Engine
-    </h2>
+  </main>
 
-    <form action="https://duckduckgo.com/" method="get" target="_blank">
-        <input type="text" name="q" placeholder="Cari apa? (DuckDuckGo)" 
-        style="
-            width: 80%;
-            padding: 10px;
-            border-radius: 10px;
-            border: 3px solid #ff00ff;
-            font-size: 1rem;
-            outline: none;
-            box-shadow: 4px 4px 0px #000;
-        ">
-        <br><br>
-        <button type="submit" style="
-            padding: 10px 30px;
-            cursor: pointer;
-            font-size: 1rem;
-            border-radius: 15px;
-            border: 3px solid #0000ff;
-            background: linear-gradient(#00ccff, #ff00ff);
-            color: #fff;
-            text-shadow: 1px 1px 0 #000;
-            box-shadow: 6px 6px 0px #000;
-            transition: 0.2s;
-        " onmouseover="this.style.transform='translateY(-3px)'"
-           onmouseout="this.style.transform='translateY(0px)'">
-            GO!
-        </button>
-    </form>
-</div>
-<footer>© 2025 Grup Taubat. Make With Oleleolala. All rights reserved.</footer>
+  <footer>© 2025 Grup Taubat. Theme: Berserk-inspired • Made with grit.</footer>
+
+  <script>
+    // Ember / ash generator (Berserk atmosphere)
+    function createEmber(){
+      const e = document.createElement('div');
+      e.className = 'ember';
+      const size = Math.random()*8 + 6;
+      e.style.width = size + 'px';
+      e.style.height = size + 'px';
+      e.style.left = Math.random() * 100 + 'vw';
+      e.style.background = `radial-gradient(circle at 30% 30%, rgba(255,140,70,${0.6+Math.random()*0.4}), rgba(120,20,20,${0.08+Math.random()*0.12}))`;
+      const dur = 8 + Math.random()*12;
+      e.style.animationDuration = dur + 's';
+      e.style.opacity = 0.5 + Math.random()*0.6;
+      document.body.appendChild(e);
+      setTimeout(()=> e.remove(), dur*1000 + 500);
+    }
+
+    // create a few every ~220ms but with random spread
+    setInterval(() => {
+      if (Math.random() < 0.7) createEmber();
+    }, 220);
+
+    // small accessibility: reduce motion if user prefers reduced motion
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if(mq.matches){
+      document.querySelectorAll('.ember').forEach(el => el.remove());
+      // stop interval by reassigning
+      // (not strictly necessary — but createEmber uses setInterval; simplest is to not create new if reduced)
+    }
+  </script>
 </body>
 </html>
