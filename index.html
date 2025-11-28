@@ -242,21 +242,7 @@
   90%  { transform: translate(-1px,-1px) rotate(-1deg) scale(1.01); }
   100% { transform: translate(0,0) rotate(0deg) scale(1); }
 }
-  #beherit-container {
-  position: relative;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem 0;
-}
-
-#beherit-container img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  object-fit: contain;
-}
+ 
 </style>
 </head>
 <body>
@@ -394,12 +380,6 @@
   container.appendChild(el);
 }
 createBeherit(); // bikin 1 saja, biar fokus & seram
-    const container = document.getElementById('beherit-container');
-const el = document.createElement('img');
-el.src = "URL_GAMBAR_KAMU";
-el.classList.add('vibrate');
-container.appendChild(el);
-
   </script>
 </body>
 </html>
