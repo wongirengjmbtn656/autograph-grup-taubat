@@ -244,9 +244,46 @@
     z-index:1;
     pointer-events:none;
   }
+  /* AREA ANIMASI TEBASAN */
+.slash-effect {
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  width: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #6b0000, #ff0000, #000);
+  box-shadow: 0 0 12px #8b0000;
+  animation: berserk-slash 0.45s ease-out forwards;
+  transform-origin: left center;
+}
+
+/* Partikel darah */
+.blood-splatter {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #7a0000;
+  border-radius: 50%;
+  animation: splatter 0.6s ease-out forwards;
+  filter: blur(1px);
+}
+
+@keyframes berserk-slash {
+  0% { width: 0; transform: skewX(-25deg); }
+  70% { width: 100%; }
+  100% { width: 100%; opacity: 0; transform: skewX(10deg); }
+}
+
+@keyframes splatter {
+  0% { opacity: 1; transform: translate(0,0) scale(1); }
+  100% { opacity: 0; transform: translate(var(--x), var(--y)) scale(1.8); }
+}
 </style>
 </head>
 <body>
+  <div style="position: relative;">
+  <input id="search-box" type="text" placeholder="Cari...")
+</div>
   <header>
     <div class="blood-scratch" aria-hidden="true"></div>
     <h1>Grup Taubat</h1>
@@ -361,5 +398,31 @@
       // (not strictly necessary — but createEmber uses setInterval; simplest is to not create new if reduced)
     }
   </script>
+  const searchBox = document.getElementById("search-box");
+
+searchBox.addEventListener("focus", () => {
+  createSlash(searchBox);
+});
+
+function createSlash(element) {
+  const slash = document.createElement("div");
+  slash.classList.add("slash-effect");
+  element.parentElement.appendChild(slash);
+
+  // Buat efek darah acak
+  for (let i = 0; i < 6; i++) {
+    const blood = document.createElement("div");
+    blood.classList.add("blood-splatter");
+    blood.style.setProperty("--x", `${(Math.random() - 0.5) * 120}px`);
+    blood.style.setProperty("--y", `${(Math.random() - 0.5) * 60}px`);
+    blood.style.left = `${element.offsetLeft + element.offsetWidth / 2}px`;
+    blood.style.top = `${element.offsetTop + element.offsetHeight}px`;
+    element.parentElement.appendChild(blood);
+
+    setTimeout(() => blood.remove(), 700);
+  }
+
+  setTimeout(() => slash.remove(), 500);
+}
 </body>
 </html>
