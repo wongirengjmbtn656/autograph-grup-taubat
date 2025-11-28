@@ -397,8 +397,7 @@
       // stop interval by reassigning
       // (not strictly necessary — but createEmber uses setInterval; simplest is to not create new if reduced)
     }
-  </script>
-  const searchBox = document.getElementById("search-box");
+    const searchBox = document.getElementById("search-box");
 
 searchBox.addEventListener("focus", () => {
   createSlash(searchBox);
@@ -424,5 +423,6 @@ function createSlash(element) {
 
   setTimeout(() => slash.remove(), 500);
 }
+  </script>
 </body>
 </html>
