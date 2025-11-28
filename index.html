@@ -229,19 +229,19 @@
     header h1{font-size:1.9rem}
     .card img{width:120px;height:120px}
   }
- @keyframes beheritFall {
-    0% {
-      transform: translateY(-50px) rotate(0deg);
-      opacity: 0;
-    }
-    10% {
-      opacity: 1;
-    }
-    100% {
-      transform: translateY(110vh) rotate(360deg);
-      opacity: 0.2;
-    }
-  }
+@keyframes beheritShake {
+  0%   { transform: translate(0,0) rotate(0deg) scale(1); }
+  10%  { transform: translate(-2px,1px) rotate(-2deg) scale(1.05); }
+  20%  { transform: translate(3px,-2px) rotate(2deg) scale(0.98); }
+  30%  { transform: translate(-3px,0) rotate(-3deg) scale(1.02); }
+  40%  { transform: translate(1px,2px) rotate(1deg) scale(1.06); }
+  50%  { transform: translate(-1px,-3px) rotate(-1deg) scale(1); }
+  60%  { transform: translate(2px,1px) rotate(2deg) scale(1.03); }
+  70%  { transform: translate(-2px,-2px) rotate(-2deg) scale(0.97); }
+  80%  { transform: translate(1px,3px) rotate(1deg) scale(1.04); }
+  90%  { transform: translate(-1px,-1px) rotate(-1deg) scale(1.01); }
+  100% { transform: translate(0,0) rotate(0deg) scale(1); }
+}
 </style>
 </head>
 <body>
@@ -258,10 +258,6 @@
         <button type="submit">Telusuri</button>
       </form>
     </div>
-   <!-- Container untuk animasi Beherit -->
-  <div id="beherit-container" style="position: fixed; top: 4.5rem; left: 0; width:100%; height: calc(100vh - 4.5rem); pointer-events: none; overflow: hidden; z-index: 3;"></div>
-
-  <!-- ... sisa HTML ... -->
   <main class="wrap">
     <div class="container">
       <!-- Card template repeated (kept original images & text) -->
@@ -363,36 +359,25 @@
       // (not strictly necessary — but createEmber uses setInterval; simplest is to not create new if reduced)
     }
     const searchBox = document.getElementById("search-box");
-    <script>
-  function createBeherit(){
-    const container = document.getElementById('beherit-container');
-    const el = document.createElement('img');
-    el.src = 'beherit.png';   // path ke ikon Beherit
-    el.style.position = 'absolute';
-    el.style.left = Math.random() * 100 + 'vw';
-    const size = 30 + Math.random() * 30;   // ukuran acak antara 30–60px
-    el.style.width = size + 'px';
-    el.style.height = size + 'px';
-    el.style.pointerEvents = 'none';
-    el.style.opacity = 0;
-    el.style.animation = `beheritFall ${5 + Math.random()*5}s linear infinite`;
-    container.appendChild(el);
+   function createBeherit(){
+  const container = document.getElementById('beherit-container');
+  const el = document.createElement('img');
+  el.src = 'https://blogger.googleusercontent.com/img/a/AVvXsEgEofAKudKgVXQvwrx-0TEMCz2nZkYQ_bV-eUWJxddPlLwMZtfb6RTBdo_N2CY_6yyijaKQkf44aN53FZKMdg3y_bhVDbbtIB_4PqX1M27uRB2vZQ1jxeDUCFPSE-2O3SVyc-3MpuB0rquXwIUe9XYh1xb3WmW9gKSblJueA5LEyXg6dLd5pGiOjEBMKgc';
+  
+  const size = 50 + Math.random()*40; // 50-90px biar terasa wujud
+  el.style.width = size + 'px';
+  el.style.position = 'absolute';
+  el.style.left = 50 - (Math.random()*30) + 'vw'; // acak tapi tetap sekitar tengah
+  el.style.top = '5.5rem';
+  el.style.zIndex = '4';
+  el.style.pointerEvents = 'none';
 
-    // Hapus setelah animasi selesai (opsional, jika ingin menghindari akumulasi element)
-    setTimeout(() => {
-      if(el.parentNode === container){
-        container.removeChild(el);
-      }
-    }, (5 + Math.random()*5)*1000 + 2000);
-  }
+  // inti: getar terus
+  el.style.animation = `beheritShake ${0.6 + Math.random()*0.6}s infinite`;
 
-  // Buat beherit secara berkala
-  setInterval(() => {
-    if (Math.random() < 0.6) {
-      createBeherit();
-    }
-  }, 250);
-</script>
+  container.appendChild(el);
+}
+createBeherit(); // bikin 1 saja, biar fokus & seram
   </script>
 </body>
 </html>
