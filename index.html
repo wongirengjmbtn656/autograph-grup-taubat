@@ -229,20 +229,6 @@
     header h1{font-size:1.9rem}
     .card img{width:120px;height:120px}
   }
-@keyframes beheritShake {
-  0%   { transform: translate(0,0) rotate(0deg) scale(1); }
-  10%  { transform: translate(-2px,1px) rotate(-2deg) scale(1.05); }
-  20%  { transform: translate(3px,-2px) rotate(2deg) scale(0.98); }
-  30%  { transform: translate(-3px,0) rotate(-3deg) scale(1.02); }
-  40%  { transform: translate(1px,2px) rotate(1deg) scale(1.06); }
-  50%  { transform: translate(-1px,-3px) rotate(-1deg) scale(1); }
-  60%  { transform: translate(2px,1px) rotate(2deg) scale(1.03); }
-  70%  { transform: translate(-2px,-2px) rotate(-2deg) scale(0.97); }
-  80%  { transform: translate(1px,3px) rotate(1deg) scale(1.04); }
-  90%  { transform: translate(-1px,-1px) rotate(-1deg) scale(1.01); }
-  100% { transform: translate(0,0) rotate(0deg) scale(1); }
-}
- 
 </style>
 </head>
 <body>
@@ -251,7 +237,6 @@
     <h1>Grup Taubat</h1>
     <div class="subtitle">— Warung jiwa, bayang-bayang dan abu —</div>
   </header>
-  <div id="beherit-container" style="position:relative; width:100%; height:0;"></div>
     <!-- Search block -->
     <div class="search-box" role="search" aria-label="Search">
       <h2 style="color:#e6d9d6;margin-bottom:8px;font-family:'Uncial Antiqua', serif">🔎 Cari (DuckDuckGo)</h2>
@@ -360,26 +345,6 @@
       // stop interval by reassigning
       // (not strictly necessary — but createEmber uses setInterval; simplest is to not create new if reduced)
     }
-    const searchBox = document.getElementById("search-box");
-   function createBeherit(){
-  const container = document.getElementById('beherit-container');
-  const el = document.createElement('img');
-  el.src = 'https://blogger.googleusercontent.com/img/a/AVvXsEgEofAKudKgVXQvwrx-0TEMCz2nZkYQ_bV-eUWJxddPlLwMZtfb6RTBdo_N2CY_6yyijaKQkf44aN53FZKMdg3y_bhVDbbtIB_4PqX1M27uRB2vZQ1jxeDUCFPSE-2O3SVyc-3MpuB0rquXwIUe9XYh1xb3WmW9gKSblJueA5LEyXg6dLd5pGiOjEBMKgc';
-  
-  const size = 50 + Math.random()*40; // 50-90px biar terasa wujud
-  el.style.width = size + 'px';
-  el.style.position = 'absolute';
-  el.style.left = 50 - (Math.random()*30) + 'vw'; // acak tapi tetap sekitar tengah
-  el.style.top = '5.5rem';
-  el.style.zIndex = '4';
-  el.style.pointerEvents = 'none';
-
-  // inti: getar terus
-  el.style.animation = `beheritShake ${0.6 + Math.random()*0.6}s infinite`;
-
-  container.appendChild(el);
-}
-createBeherit(); // bikin 1 saja, biar fokus & seram
   </script>
 </body>
 </html>
