@@ -1,1 +1,111 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Translator — Grup Taubat</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Uncial+Antiqua&display=swap" rel="stylesheet">
+
+<style>
+  body{
+    background:#0b0b0b;
+    color:#ddd;
+    font-family:"Cinzel",serif;
+    min-height:100vh;
+    padding:2rem;
+    text-align:center;
+  }
+  h1{
+    font-family:"Uncial Antiqua",serif;
+    font-size:2.4rem;
+    color:#f2e6de;
+    margin-bottom:1.4rem;
+    text-shadow:0 4px 14px rgba(0,0,0,0.8);
+  }
+
+  textarea{
+    width:90%;
+    max-width:700px;
+    height:140px;
+    padding:12px;
+    margin-top:15px;
+    border-radius:8px;
+    border:2px solid rgba(255,255,255,0.08);
+    background:rgba(0,0,0,0.4);
+    color:#fff;
+    font-size:1rem;
+    resize:vertical;
+  }
+
+  select, button{
+    margin-top:18px;
+    padding:12px 20px;
+    border-radius:8px;
+    font-size:1rem;
+    border:2px solid rgba(110,10,10,0.8);
+    background:linear-gradient(180deg,#3a0b0b,#1c0404);
+    color:#f7dcd8;
+    cursor:pointer;
+    box-shadow:4px 6px 0 rgba(0,0,0,0.6);
+  }
+
+  #output{
+    margin-top:25px;
+    white-space:pre-wrap;
+    line-height:1.4;
+    background:rgba(0,0,0,0.35);
+    padding:18px;
+    border-radius:10px;
+    width:90%;
+    max-width:700px;
+    margin-left:auto;margin-right:auto;
+    color:#eaddd8;
+    border:1px solid rgba(110,10,10,0.4);
+  }
+
+  a{color:#bfa5a0;display:inline-block;margin-top:22px}
+</style>
+</head>
+
+<body>
+<h1>🌐 Translator</h1>
+
+<textarea id="inputText" placeholder="Masukkan teks..."></textarea><br>
+
+<select id="langSelect">
+  <option value="en">Inggris</option>
+  <option value="id">Indonesia</option>
+  <option value="ar">Arab</option>
+  <option value="ja">Jepang</option>
+  <option value="ko">Korea</option>
+  <option value="es">Spanyol</option>
+</select>
+
+<button onclick="translateText()">Terjemahkan</button>
+
+<div id="output"></div>
+
+<a href="index.html">⬅ Kembali</a>
+
+<script>
+async function translateText(){
+  const text = document.getElementById('inputText').value;
+  const lang = document.getElementById('langSelect').value;
+
+  const res = await fetch('https://translate.argosopentech.com/translate', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      q: text,
+      target: lang
+    })
+  });
+
+  const data = await res.json();
+  document.getElementById('output').innerText = data.translatedText || "(gagal menerjemahkan)";
+}
+</script>
+
+</body>
+</html>
